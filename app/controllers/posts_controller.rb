@@ -4,15 +4,20 @@ class PostsController < ApplicationController
   end
 
   def edit
+    # binding.pry
     @post = Post.find(params[:id])
   end
 
   def update
     @post = Post.find(params[:id])
+      @post.update(post_params)
+      @new_post = Post.new(post_params)
+    if @new_post.valid?
 
-    @post.update(post_params)
-
-    redirect_to post_path(@post)
+      redirect_to post_path(@post)
+    else
+      render :edit
+    end
   end
 
   private
